@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import icAppLogo from '../images/ic_app_round.png';
-import icProfilePlaceholder from '../images/ic_profile.png';
+import UserIcon from './UserIcon';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -151,7 +151,11 @@ export default function Navbar() {
                 className="flex items-center gap-3 p-1.5 pr-4 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 hover:scale-[1.02]"
               >
                 <div className="w-9 h-9 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center shadow-md overflow-hidden">
-                  <img src={user?.profile_image ? `${import.meta.env.VITE_API_URL}/storage/employees/${user.profile_image}` : icProfilePlaceholder} alt="Profile" className="w-full h-full object-cover" />
+                  {user?.profile_image ? (
+                    <img src={`${import.meta.env.VITE_API_URL}/storage/employees/${user.profile_image}`} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    <UserIcon className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+                  )}
                 </div>
                 <div className="hidden md:block text-left">
                   <p className="text-sm font-medium text-gray-700 dark:text-gray-300 leading-none">
