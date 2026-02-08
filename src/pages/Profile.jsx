@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../api';
 import { useAuth } from '../contexts/AuthContext';
-import icProfile from '../images/ic_profile.png';
-
+import UserIcon from '../components/UserIcon';
 import Alert from '../components/Alert';
 import Button from '../components/Button';
 import FormField from '../components/FormField';
@@ -108,7 +107,11 @@ export default function Profile() {
           <div className="px-8 pb-8">
             <div className="relative -mt-16 mb-6">
               <div className="w-32 h-32 rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-700 shadow-xl ring-4 ring-white dark:ring-gray-800 flex items-center justify-center">
-                <img src={imagePreview || icProfile} alt="Profile" className="w-full h-full object-cover" />
+                {imagePreview ? (
+                  <img src={imagePreview} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <UserIcon className="w-24 h-24 text-gray-400 dark:text-gray-500" />
+                )}
               </div>
               {/* Image edit removed — view-only avatar for admin profile */}
             </div>
