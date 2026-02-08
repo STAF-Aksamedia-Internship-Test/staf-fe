@@ -5,7 +5,7 @@ const BASE_URL = API_BASE_URL.replace('/api', '');
 const getImageUrl = (path) => {
   if (!path) return null;
   if (path.startsWith('http')) return path;
-  return `${BASE_URL}${path}`;
+  return `${BASE_URL}/storage/${path}`;
 };
 
 class ApiClient {
@@ -23,7 +23,7 @@ class ApiClient {
     }
   }
 
-  // Health check - directly fetch to detect backend status
+  // Health check
   async healthCheck() {
     const startTime = Date.now();
     try {
@@ -183,9 +183,6 @@ class ApiClient {
     // Let browser set Content-Type for multipart/form-data
     delete headers['Content-Type'];
 
-    // Some servers (and PHP's handling of multipart with PUT) don't parse files
-    // correctly for PUT requests. Use POST with method override so Laravel
-    // correctly handles the multipart form data.
     if (formData instanceof FormData) {
       formData.append('_method', 'PUT');
     }
