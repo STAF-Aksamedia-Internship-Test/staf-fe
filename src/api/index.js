@@ -1,5 +1,13 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
+const BASE_URL = API_BASE_URL.replace('/api', '');
+
+const getImageUrl = (path) => {
+  if (!path) return null;
+  if (path.startsWith('http')) return path;
+  return `${BASE_URL}${path}`;
+};
+
 class ApiClient {
   constructor() {
     this.token = localStorage.getItem('token');
@@ -225,4 +233,5 @@ class ApiClient {
 }
 
 export const api = new ApiClient();
+export { getImageUrl };
 export default api;

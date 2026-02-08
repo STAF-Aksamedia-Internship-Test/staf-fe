@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import api from '../api';
+import api, { getImageUrl } from '../api';
 import icProfile from '../images/ic_profile.png';
 import PageHeader from '../components/PageHeader';
 import Alert from '../components/Alert';
@@ -382,7 +382,7 @@ export default function Employees() {
                     <td className="px-6 py-4 whitespace-nowrap text-center">
                       <div className="w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 flex items-center justify-center mx-auto">
                         {employee.image ? (
-                          <img src={employee.image} alt={employee.name} className="w-full h-full object-cover" />
+                          <img src={getImageUrl(employee.image)} alt={employee.name} className="w-full h-full object-cover" />
                         ) : (
                           <img src={icProfile} alt="Profile" className="w-full h-full object-cover" />
                         )}
