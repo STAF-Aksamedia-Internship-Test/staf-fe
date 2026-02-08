@@ -244,8 +244,14 @@ export default function Employees() {
       form.append('phone', formData.phone);
       form.append('division', formData.division_id);
       form.append('position', formData.position);
+      
       if (imageUrl) {
-        form.append('image', imageUrl);
+        // If Cloudinary URL, send as image_url; if local file, send as image
+        if (imageUrl.startsWith('http')) {
+          form.append('image_url', imageUrl);
+        } else {
+          form.append('image', formData.image);
+        }
       }
 
       if (editingEmployee) {
