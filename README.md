@@ -2,7 +2,7 @@
 
 # STAF - Systematic Talent & Administration Framework
 
-**STAF (Staff Administration Framework)** adalah aplikasi web modern untuk manajemen karyawan  
+**STAF** adalah aplikasi web modern untuk manajemen karyawan  
 yang dibangun dengan **React**, **Tailwind CSS**, dan **Vite**.
 
 **Click here for Live Web:**
