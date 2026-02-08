@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import api, { getImageUrl, uploadImage } from '../api';
-import icProfile from '../images/ic_profile.png';
+import UserIcon from '../components/UserIcon';
 import PageHeader from '../components/PageHeader';
 import Alert from '../components/Alert';
 import SearchInput from '../components/SearchInput';
@@ -386,11 +386,11 @@ export default function Employees() {
                 employees.map((employee) => (
                   <tr key={employee.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150">
                     <td className="px-6 py-4 whitespace-nowrap text-center">
-                      <div className="w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 flex items-center justify-center mx-auto">
+                      <div className="w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 flex items-center justify-center mx-auto text-gray-400 dark:text-gray-500">
                         {employee.image ? (
-                          <img src={getImageUrl(employee.image)} alt={employee.name} className="w-full h-full object-cover" />
+                          <img src={employee.image} alt={employee.name} className="w-full h-full object-cover" />
                         ) : (
-                          <img src={icProfile} alt="Profile" className="w-full h-full object-cover" />
+                          <UserIcon className="w-8 h-8" />
                         )}
                       </div>
                     </td>
@@ -463,7 +463,7 @@ export default function Employees() {
                 {imagePreview ? (
                   <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                 ) : (
-                  <img src={icProfile} alt="Preview" className="w-full h-full object-cover" />
+                  <UserIcon className="w-16 h-16 text-gray-400 dark:text-gray-500" />
                 )}
               </div>
               <label
