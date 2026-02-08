@@ -2,10 +2,36 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
 
 const BASE_URL = API_BASE_URL.replace('/api', '');
 
+// Cloudinary configuration
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
 const getImageUrl = (path) => {
   if (!path) return null;
   if (path.startsWith('http')) return path;
   return `${BASE_URL}/storage/${path}`;
+};
+
+// Upload image to Cloudinary
+const uploadImage = async (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+    {
+      method: 'POST',
+      body: formData,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to upload image to Cloudinary');
+  }
+
+  const data = await response.json();
+  return data.secure_url;
 };
 
 class ApiClient {
@@ -23,7 +49,7 @@ class ApiClient {
     }
   }
 
-  // Health check
+  // Health check - directly fetch to detect backend status
   async healthCheck() {
     const startTime = Date.now();
     try {
@@ -183,6 +209,7 @@ class ApiClient {
     // Let browser set Content-Type for multipart/form-data
     delete headers['Content-Type'];
 
+    // Use POST with _method override so Laravel correctly handles the multipart form data.
     if (formData instanceof FormData) {
       formData.append('_method', 'PUT');
     }
@@ -230,5 +257,5 @@ class ApiClient {
 }
 
 export const api = new ApiClient();
-export { getImageUrl };
+export { getImageUrl, uploadImage };
 export default api;

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import api, { getImageUrl } from '../api';
+import api, { getImageUrl, uploadImage } from '../api';
 import icProfile from '../images/ic_profile.png';
 import PageHeader from '../components/PageHeader';
 import Alert from '../components/Alert';
@@ -233,13 +233,19 @@ export default function Employees() {
     setSubmitting(true);
 
     try {
+      // Upload image to Cloudinary first if there's a new image
+      let imageUrl = formData.image;
+      if (formData.image && typeof formData.image !== 'string') {
+        imageUrl = await uploadImage(formData.image);
+      }
+
       const form = new FormData();
       form.append('name', formData.name);
       form.append('phone', formData.phone);
       form.append('division', formData.division_id);
       form.append('position', formData.position);
-      if (formData.image) {
-        form.append('image', formData.image);
+      if (imageUrl) {
+        form.append('image', imageUrl);
       }
 
       if (editingEmployee) {
