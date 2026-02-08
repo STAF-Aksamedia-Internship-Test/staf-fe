@@ -1,9 +1,19 @@
-# 🎨 STAF Frontend - Staff Management System UI
+<div align="center">
 
-**STAF (Staff Administration Framework)** adalah aplikasi web modern untuk manajemen karyawan yang dibangun dengan React, Tailwind CSS, dan Vite.
+# STAF Frontend - Systematic Talent & Administration Framework
 
-> **Live Demo:** https://staf-eight.vercel.app  
-> **Default Credentials:** `admin` / `pastibisa`
+**STAF (Staff Administration Framework)** adalah aplikasi web modern untuk manajemen karyawan  
+yang dibangun dengan **React**, **Tailwind CSS**, dan **Vite**.
+
+**Click here for Live Web:**
+
+https://staf-eight.vercel.app  
+
+ **Default Credentials:** `admin` / `pastibisa`
+
+</div>
+
+
 
 ## 📋 Daftar Isi
 
@@ -12,6 +22,7 @@
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Environment Setup](#environment-setup)
+- [Cloudinary Image Upload](#cloudinary-image-upload)
 - [Development](#development)
 - [Building & Deployment](#building--deployment)
 - [Project Structure](#project-structure)
@@ -95,7 +106,7 @@ STAF Frontend adalah aplikasi single-page application (SPA) yang menyediakan int
 | **Axios** | Latest | HTTP client |
 | **Node.js** | 16+ | Runtime |
 | **npm/pnpm** | Latest | Package manager |
-| **Vercel** | - | Hosting |
+| **Cloudinary** | Latest | Image hosting & CDN |
 
 ---
 
@@ -484,6 +495,44 @@ npm cache clean --force
 # Reinstall
 npm install
 ```
+
+---
+
+## ☁️ Cloudinary Image Upload
+
+### Overview
+Aplikasi menggunakan **Cloudinary** untuk upload dan hosting gambar karyawan. Setiap foto diupload ke Cloudinary dan URL-nya disimpan di database.
+
+### Configuration
+
+#### Environment Variables
+Tambahkan di `.env.local`:
+```env
+VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
+VITE_CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
+```
+
+#### Cloudinary Dashboard Setup
+1. Login ke https://cloudinary.com/console
+2. Copy **Cloud Name** dari Dashboard
+3. Ke Settings → Upload → Upload presets
+4. Add upload preset dengan:
+   - Signing Mode: **Unsigned**
+   - Folder: `employees`
+   - Allowed formats: jpg, png, jpeg
+5. Copy **Upload preset name** ke `VITE_CLOUDINARY_UPLOAD_PRESET`
+
+### Troubleshooting
+
+#### Error: "Upload preset not found"
+- Verify `VITE_CLOUDINARY_UPLOAD_PRESET` di `.env.local`
+- Pastikan upload preset dibuat dengan mode "Unsigned"
+- Check nama preset sama persis (case-sensitive)
+
+#### Error: "Resource not found"
+- Cloudinary URL mungkin expired atau invalid
+- Check browser network tab untuk response detail
+- Verify image URL bisa diakses langsung di browser
 
 ---
 
