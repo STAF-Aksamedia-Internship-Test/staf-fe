@@ -562,6 +562,5 @@ npm run build
 
 ## 🔗 Related Documentation
 
-- **Backend README:** [../karyawan-hub/README.md](../karyawan-hub/README.md)
-- **Postman Collection:** [../postman_collection.json](../postman_collection.json)
+- **Postman Collection:** [../postman_collection.json](https://github.com/STAF-Aksamedia-Internship-Test/staf-be/blob/master/postman_collection.json)
 - **API Demo:** https://staf-be-production.up.railway.app/api/health
